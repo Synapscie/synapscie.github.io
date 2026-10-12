@@ -1,11 +1,11 @@
 backend:
   name: github
-  repo: jgvalence/synapscie
+  repo: Synapscie/synapscie.github.io
   branch: main
   base_url: https://synapscie-auth.VOTRE-SOUS-DOMAINE.workers.dev
 
-site_url: https://jgvalence.github.io/synapscie
-display_url: https://jgvalence.github.io/synapscie
+site_url: https://synapscie.github.io
+display_url: https://synapscie.github.io
 
 media_folder: src/assets/site
 public_folder: /src/assets/site
