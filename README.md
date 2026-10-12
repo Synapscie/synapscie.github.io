@@ -4,7 +4,10 @@ Site vitrine de l'association : Astro, pages statiques publiées sur GitHub
 Pages. Les membres et les projets se rédigent depuis `/admin`, sans passer par
 le code.
 
-Première installation : [SETUP.md](SETUP.md).
+- Site en ligne : https://synapscie.github.io
+- **Ce qu'il reste à faire avant la mise en ligne : [fiche #11](https://github.com/Synapscie/synapscie.github.io/issues/11)**,
+  une case par tâche, chacune détaillée dans sa propre fiche
+- Première installation : [SETUP.md](SETUP.md)
 
 ## Commandes
 
