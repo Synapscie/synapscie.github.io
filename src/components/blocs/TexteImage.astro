@@ -9,14 +9,8 @@ interface Props {
   alt: string;
   position_image?: 'gauche' | 'droite';
   legende?: string;
-
   rond?: boolean;
-
-  niveau?: 'h2' | 'h3';
-
-  /** Vrai pour la premiere image d'une page, celle qui s'affiche sans faire
-      defiler. La charger paresseusement retarderait le plus gros element de
-      l'ecran, donc le temps d'affichage percu. Faux partout ailleurs. */
+  /** Image visible sans défiler : chargée tout de suite plutôt qu'en différé. */
   prioritaire?: boolean;
 }
 
@@ -28,11 +22,8 @@ const {
   position_image = 'droite',
   legende,
   rond = false,
-  niveau = 'h2',
   prioritaire = false,
 } = Astro.props;
-
-const Titre = niveau;
 ---
 <section class:list={['bloc', 'texte-image', `texte-image--${position_image}`, { 'texte-image--rond': rond }]}>
   <figure class:list={['texte-image__media', { 'texte-image__media--rond': rond }]}>
@@ -51,7 +42,7 @@ const Titre = niveau;
   </figure>
 
   <div class="texte-image__corps">
-    {titre && <Titre>{titre}</Titre>}
+    {titre && <h2>{titre}</h2>}
     <TexteRiche texte={texte} />
   </div>
 </section>
@@ -73,9 +64,7 @@ const Titre = niveau;
       order: 2;
     }
 
-    /* Un portrait rond ne fait que 15rem : dans une moitie de grille, il
-       flottait loin de son texte. Colonne a sa taille, texte borne a la
-       largeur de lecture, pour que chaque portrait reste accole a sa bio. */
+    /* Colonne à la taille du portrait, pour qu'il reste collé à son texte. */
     .texte-image--rond {
       grid-template-columns: 15rem minmax(0, var(--largeur-texte));
     }

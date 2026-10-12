@@ -59,7 +59,7 @@ const blocs = ({ image }: SchemaContext) =>
     z.object({
       type: z.literal('video'),
       titre: z.string().optional(),
-      url: z.string().url(),
+      url: z.url(),
     }),
     z.object({
       type: z.literal('separateur'),

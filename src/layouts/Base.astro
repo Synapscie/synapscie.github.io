@@ -15,8 +15,6 @@ const PAGES = [
   { url: '/', libelle: 'Accueil' },
   { url: '/membres/', libelle: 'Membres' },
   { url: '/projets/', libelle: 'Projets' },
-  // Sans formulaire, la page Contact ne porte qu'une adresse : elle quitte le
-  // menu, l'adresse la remplace au pied de page. Voir src/lib/contact.ts.
   ...(formulaireActif ? [{ url: '/contact/', libelle: 'Nous contacter' }] : []),
 ];
 
@@ -46,10 +44,7 @@ const annee = new Date().getFullYear();
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
 
-    {/* Seul script inline du site, et il doit le rester : il applique le theme
-        choisi avant le premier rendu. Bundle, donc differe, la page s'afficherait
-        dans le theme du systeme puis basculerait sous les yeux du visiteur.
-        Garde nu pour cette raison : chaque octet part sur toutes les pages. */}
+    {/* Inline pour appliquer le thème avant le premier rendu, sans clignement. */}
     <script is:inline>
       try{var t=localStorage.getItem('theme');if(t==='clair'||t==='sombre')document.documentElement.dataset.theme=t}catch(e){}
     </script>
@@ -78,8 +73,7 @@ const annee = new Date().getFullYear();
             </ul>
           </nav>
 
-          {/* `hidden` par defaut : sans JavaScript le bouton ne ferait rien,
-              autant ne pas l'afficher. Le script de fin de page le revele. */}
+          {/* Masqué sans JavaScript, révélé par le script de fin de page. */}
           <button type="button" class="bascule-theme" id="bascule-theme" hidden>
             <svg
               class="bascule-theme__icone"
@@ -111,10 +105,6 @@ const annee = new Date().getFullYear();
       </div>
     </footer>
 
-    {/* Celui-ci n'a pas besoin d'etre inline : le bouton part `hidden` et
-        n'apparait qu'une fois le script charge. Astro le compile donc dans un
-        fichier minifie et mis en cache, plutot que de le repeter sur chaque
-        page. Il ne bloque pas l'affichage. */}
     <script>
       (function () {
         const bouton = document.getElementById('bascule-theme');
@@ -122,15 +112,11 @@ const annee = new Date().getFullYear();
         if (!bouton || !libelle) return;
         const racine = document.documentElement;
 
-        // Sans choix explicite, le theme affiche est celui du systeme : c'est
-        // lui qu'il faut lire pour savoir vers quoi le bouton bascule.
+        // Sans choix explicite, c'est le thème du système qui s'affiche.
         const themeAffiche = () =>
           racine.dataset.theme ||
           (matchMedia('(prefers-color-scheme: dark)').matches ? 'sombre' : 'clair');
 
-        // Flechees et declarees apres la garde ci-dessus : une `function`
-        // hoistee ferait perdre a TypeScript le fait que les deux elements
-        // existent, puisqu'elle pourrait etre appelee avant la verification.
         const etiqueter = () => {
           const texte = 'Passer au thème ' + (themeAffiche() === 'sombre' ? 'clair' : 'sombre');
           libelle.textContent = texte;
@@ -146,14 +132,12 @@ const annee = new Date().getFullYear();
           try {
             localStorage.setItem('theme', vers);
           } catch (e) {
-            // Stockage refuse : la bascule vaut pour la page courante et le
-            // reglage du systeme reprendra la main a la prochaine visite.
+            // Stockage refusé : le choix ne vaut que pour cette page.
           }
           etiqueter();
         });
 
-        // Tant que le visiteur n'a rien choisi, suivre le systeme s'il change
-        // (bascule automatique jour/nuit d'Android, macOS, Windows).
+        // Sans choix du visiteur, suivre le système s'il change.
         matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
           if (!racine.dataset.theme) etiqueter();
         });

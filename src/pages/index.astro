@@ -5,9 +5,7 @@ import { lien } from '../lib/lien';
 import { formulaireActif, lienCourriel } from '../lib/contact';
 import accueil from '../assets/site/accueil.jpg';
 
-// Le raccourci « Nous écrire » mène au formulaire quand il existe, à l'adresse
-// de courriel sinon. Sans adresse renseignée, il disparaît plutôt que de
-// pointer dans le vide. Voir src/lib/contact.ts.
+// Formulaire s'il existe, adresse de courriel sinon, rien si aucune des deux.
 const ecrire = formulaireActif ? lien('/contact/') : lienCourriel;
 
 const LIENS = [
@@ -128,7 +126,6 @@ const LIENS = [
     font-weight: 700;
     font-size: var(--t-l);
     margin-bottom: var(--e-1);
-
     text-decoration: underline;
     text-underline-offset: 0.15em;
   }

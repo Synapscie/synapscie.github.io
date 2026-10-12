@@ -24,14 +24,12 @@ const membres = (await getCollection('membres')).sort(
           <li>
             {membre.data.photo ? (
               <TexteImage
-                niveau="h2"
                 titre={membre.data.nom}
                 texte={
                   (membre.data.role ? `**${membre.data.role}**\n\n` : '') + membre.data.bio
                 }
                 image={membre.data.photo}
                 alt={membre.data.alt_photo ?? `Portrait de ${membre.data.nom}.`}
-
                 position_image={i % 2 === 0 ? 'gauche' : 'droite'}
                 rond
                 prioritaire={i === 0}

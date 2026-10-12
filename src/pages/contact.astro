@@ -6,8 +6,7 @@ import { ASSO } from '../config';
 
 const cle = import.meta.env.PUBLIC_CLE_FORMULAIRE;
 
-// Web3Forms exige une adresse absolue. Sans elle, l'envoi renvoie le visiteur
-// vers la page de confirmation de web3forms.com, hors du site.
+// Web3Forms exige une adresse absolue pour la redirection.
 const urlMerci = new URL(lien('/merci/'), Astro.url).href;
 ---
 <Base

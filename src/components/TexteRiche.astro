@@ -3,13 +3,12 @@ import { marked } from 'marked';
 
 interface Props {
   texte: string;
-  class?: string;
 }
 
-const { texte, class: classe } = Astro.props;
+const { texte } = Astro.props;
 const html = marked.parse(texte ?? '', { async: false }) as string;
 ---
-<div class:list={['texte-riche', classe]} set:html={html} />
+<div class="texte-riche" set:html={html} />
 
 <style>
   .texte-riche :global(> :last-child) {
